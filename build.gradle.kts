@@ -5,6 +5,7 @@ plugins {
     id("java-gradle-plugin")
     id("com.gradle.plugin-publish") version "0.12.0"
     groovy //TODO remove it at the end of the migration
+    id("com.adarshr.test-logger") version "2.1.1" //TODO latest version incompatible with existing groovy version
 }
 
 java {
@@ -30,8 +31,14 @@ dependencies {
     testImplementation("com.github.stefanbirkner:system-rules:1.19.0") {
         exclude("junit-dep")
     }
-    testImplementation("junit:junit:4.13.2")
+    testImplementation(gradleTestKit())
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
     testImplementation("commons-io:commons-io:2.11.0")
+}
+
+testlogger {
+    setTheme("standard-parallel")
 }
 
 tasks{
